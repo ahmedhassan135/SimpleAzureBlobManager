@@ -16,7 +16,7 @@ app.use("/blob", blobRouter);
 
 app.get("/", (req, res) => {
   console.log();
-  res.send("Hello, Express!");
+  res.send("Server is running!");
 });
 
 app.listen(port, () => {
