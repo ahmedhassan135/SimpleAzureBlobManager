@@ -5,6 +5,8 @@ const passport = require("../config/passportConfig");
 const router = express.Router();
 require("dotenv").config();
 
+router.use(express.urlencoded({ extended: true }));
+
 checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
@@ -29,23 +31,27 @@ router.get("/list-containers", checkAuthenticated, async (req, res) => {
   }
 });
 
-router.get(
-  "/create-container/:containerName",
-  checkAuthenticated,
-  async (req, res) => {
-    try {
-      // Create a container
-      const containerClient = blobServiceClient.getContainerClient(
-        req.params.containerName
-      );
-      await containerClient.createIfNotExists();
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error uploading file to Azure Storage");
+router.post("/create-container", checkAuthenticated, async (req, res) => {
+  try {
+    if (
+      Object.keys(req.body).length === 0 ||
+      Object.keys(req.body.ContainerName).length === 0
+    ) {
+      console.log("here");
+      return res.status(400).json({ Error: "Container Name cannot be empty" });
     }
-    res.status(200).json({ Message: "Container created successfully" });
+
+    //Creating a container
+    const containerClient = blobServiceClient.getContainerClient(
+      req.body.ContainerName
+    );
+    await containerClient.createIfNotExists();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error uploading file to Azure Storage");
   }
-);
+  res.status(200).json({ Message: "Container created successfully" });
+});
 
 router.get(
   "/:containerName/list-blobs",
