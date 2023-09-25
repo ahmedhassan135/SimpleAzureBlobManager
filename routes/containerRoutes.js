@@ -1,18 +1,12 @@
 const express = require("express");
 const { BlobServiceClient, BlockBlobClient } = require("@azure/storage-blob");
 const passport = require("../config/passportConfig");
+const { checkAuthenticated } = require("../Util/ServerUtil");
 
 const router = express.Router();
 require("dotenv").config();
 
 router.use(express.urlencoded({ extended: true }));
-
-checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/auth/login");
-};
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(
   process.env.AZURE_CONNECTION_STRING

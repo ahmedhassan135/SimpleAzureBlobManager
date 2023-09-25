@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const passport = require("./config/passportConfig");
 const session = require("express-session");
+const config = require("config");
+
+const passport = require("./config/passportConfig");
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = config.get("serverPort") || 8000;
 
 app.use(cors());
 app.use(express.json());
