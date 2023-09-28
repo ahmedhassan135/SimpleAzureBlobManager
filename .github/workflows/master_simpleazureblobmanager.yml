@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'simpleAzureBlobManager'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BB1A89417A32498494B8DC4239025312 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_64EECC61A91A4E20A9F0750493FB0C79 }}
           package: .
