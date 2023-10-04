@@ -40,7 +40,7 @@ router.post("/login/azure", (req, res) => {
     formData.append("grant_type", "authorization_code");
     formData.append("client_id", process.env.CLIENT_ID);
     formData.append("code", req.body.code);
-    formData.append("redirect_uri", "http://localhost:3000/");
+    formData.append("redirect_uri", process.env.REDIRECT_URI);
     formData.append("scope", "openid email profile");
 
     fetch("https://login.microsoftonline.com/common/oauth2/v2.0/token", {
