@@ -1,16 +1,5 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-
-authUser = (user, password, done) => {
-  //This is a placeholder method to simulate a DB call to check if the user credentials are valid
-  //It will always return true to simulate successful login
-
-  let authenticated_user = { id: 123, name: "Testuser" };
-
-  return done(null, authenticated_user);
-};
-
-passport.use(new LocalStrategy(authUser));
+const OIDCStrategy = require("passport-azure-ad-oauth2").Strategy;
 
 passport.serializeUser((userObj, done) => {
   done(null, userObj);

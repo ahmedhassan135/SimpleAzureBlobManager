@@ -12,7 +12,7 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(
   process.env.AZURE_CONNECTION_STRING
 );
 
-router.get("/list-containers", checkAuthenticated, async (req, res) => {
+router.get("/list-containers" /*, checkAuthenticated*/, async (req, res) => {
   try {
     const containerNames = [];
     for await (const container of blobServiceClient.listContainers()) {
@@ -25,7 +25,7 @@ router.get("/list-containers", checkAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/create-container", checkAuthenticated, async (req, res) => {
+router.post("/create-container" /*, checkAuthenticated*/, async (req, res) => {
   try {
     if (
       Object.keys(req.body).length === 0 ||
@@ -49,7 +49,7 @@ router.post("/create-container", checkAuthenticated, async (req, res) => {
 
 router.get(
   "/:containerName/list-blobs",
-  checkAuthenticated,
+  //checkAuthenticated,
   async (req, res) => {
     let blobInfo = [];
     const containerClient = blobServiceClient.getContainerClient(
@@ -69,7 +69,7 @@ router.get(
       });
     }
 
-    res.json({ blobs: blobInfo });
+    res.json({ Blobs: blobInfo });
   }
 );
 

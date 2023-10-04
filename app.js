@@ -30,9 +30,9 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true,
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: false,
   })
 );
 
